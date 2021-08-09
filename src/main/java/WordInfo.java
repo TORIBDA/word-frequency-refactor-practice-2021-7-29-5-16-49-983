@@ -1,3 +1,5 @@
+import java.text.MessageFormat;
+
 public class WordInfo {
     private final String word;
     private final int wordCount;
@@ -15,5 +17,7 @@ public class WordInfo {
         return this.wordCount;
     }
 
-
+    public String generateWordWithCount() {
+        return MessageFormat.format("{0} {1}", word, wordCount);
+    }
 }

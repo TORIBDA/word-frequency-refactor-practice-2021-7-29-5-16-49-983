@@ -1,4 +1,3 @@
-import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,7 +9,7 @@ public class WordFrequencyGame {
 
     public String getResult(String sentence) {
         if (splitByWords(sentence).size() == SINGLE_WORD_COUNT) {
-            return formatWordWithFrequency(new WordInfo(sentence, SINGLE_WORD_COUNT));
+            return new WordInfo(sentence, SINGLE_WORD_COUNT).generateWordWithCount();
         }
         try {
             List<String> words = splitByWords(sentence);
@@ -24,14 +23,8 @@ public class WordFrequencyGame {
 
     private String generateResultingWordFrequency(List<WordInfo> wordsInfo) {
         return wordsInfo.stream()
-                .map(this::formatWordWithFrequency)
+                .map(WordInfo::generateWordWithCount)
                 .collect(Collectors.joining(NEW_LINE));
-    }
-
-    private String formatWordWithFrequency(WordInfo wordInfo) {
-        return MessageFormat.format("{0} {1}",
-                wordInfo.getWord(),
-                wordInfo.getWordCount());
     }
 
     private List<WordInfo> sortWordsDescending(List<WordInfo> wordInfoList) {
