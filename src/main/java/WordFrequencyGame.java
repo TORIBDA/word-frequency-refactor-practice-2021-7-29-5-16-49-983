@@ -8,21 +8,20 @@ public class WordFrequencyGame {
     public String getResult(String sentence) {
         if (sentence.split(BLANK_SPACE).length == 1) {
             return sentence + " 1";
-        } else {
-            try {
-                List<String> words = splitByWords(sentence);
-                List<WordInfo> wordInfoList = generateWordsInfo(words);
-                wordInfoList = sortWordsDescending(wordInfoList);
+        }
+        try {
+            List<String> words = splitByWords(sentence);
+            List<WordInfo> wordInfoList = generateWordsInfo(words);
+            wordInfoList = sortWordsDescending(wordInfoList);
 
-                StringJoiner joiner = new StringJoiner("\n");
-                for (WordInfo w : wordInfoList) {
-                    String s = w.getValue() + " " + w.getWordCount();
-                    joiner.add(s);
-                }
-                return joiner.toString();
-            } catch (Exception e) {
-                return CALCULATE_ERROR_MESSAGE;
+            StringJoiner joiner = new StringJoiner("\n");
+            for (WordInfo w : wordInfoList) {
+                String s = w.getValue() + " " + w.getWordCount();
+                joiner.add(s);
             }
+            return joiner.toString();
+        } catch (Exception e) {
+            return CALCULATE_ERROR_MESSAGE;
         }
     }
 
