@@ -10,10 +10,8 @@ public class WordFrequencyGame {
         } else {
             try {
                 List<String> words = splitByWords(sentence);
-
                 List<WordInfo> wordInfoList = generateWordsInfo(words);
-
-                wordInfoList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+                wordInfoList = sortWordsDescending(wordInfoList);
 
                 StringJoiner joiner = new StringJoiner("\n");
                 for (WordInfo w : wordInfoList) {
@@ -25,6 +23,12 @@ public class WordFrequencyGame {
                 return "Calculate Error";
             }
         }
+    }
+
+    private List<WordInfo> sortWordsDescending(List<WordInfo> wordInfoList) {
+        return wordInfoList.stream()
+                .sorted((firstWord, secondWord) -> secondWord.getWordCount() - firstWord.getWordCount())
+                .collect(Collectors.toList());
     }
 
     private List<WordInfo> generateWordsInfo(List<String> words) {
