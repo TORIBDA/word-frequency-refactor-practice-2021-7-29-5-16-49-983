@@ -9,8 +9,8 @@ public class WordFrequencyGame {
             return sentence + " 1";
         } else {
             try {
-                //split the input string with 1 to n pieces of spaces
                 List<String> words = splitByWords(sentence);
+
                 List<WordInfo> wordInfoList = generateWordsInfo(words);
 
                 wordInfoList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
@@ -31,10 +31,14 @@ public class WordFrequencyGame {
         List<String> distinctWords = words.stream().distinct().collect(Collectors.toList());
         List<WordInfo> wordInfos = new LinkedList<>();
         distinctWords.forEach(distinctWord -> {
-            int count = (int) words.stream().filter(word -> word.equals(distinctWord)).count();
+            int count = computeWordCountFromWords(distinctWord, words);
             wordInfos.add(new WordInfo(distinctWord, count));
         });
         return wordInfos;
+    }
+
+    private int computeWordCountFromWords(String distinctWord, List<String> words) {
+        return (int) words.stream().filter(word -> word.equals(distinctWord)).count();
     }
 
     private List<String> splitByWords(String sentence) {
