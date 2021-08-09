@@ -6,10 +6,11 @@ public class WordFrequencyGame {
     private final String BLANK_SPACE = "\\s+";
     private final String CALCULATE_ERROR_MESSAGE = "Calculate Error";
     private final String NEW_LINE = "\n";
+    private final int SINGLE_WORD_COUNT = 1;
 
     public String getResult(String sentence) {
-        if (sentence.split(BLANK_SPACE).length == 1) {
-            return sentence + " 1";
+        if (splitByWords(sentence).size() == SINGLE_WORD_COUNT) {
+            return formatWordWithFrequency(new WordInfo(sentence, SINGLE_WORD_COUNT));
         }
         try {
             List<String> words = splitByWords(sentence);
@@ -23,10 +24,14 @@ public class WordFrequencyGame {
 
     private String generateResultingWordFrequency(List<WordInfo> wordsInfo) {
         return wordsInfo.stream()
-                .map(wordInfo -> MessageFormat.format("{0} {1}",
-                        wordInfo.getWord(),
-                        wordInfo.getWordCount()))
+                .map(this::formatWordWithFrequency)
                 .collect(Collectors.joining(NEW_LINE));
+    }
+
+    private String formatWordWithFrequency(WordInfo wordInfo) {
+        return MessageFormat.format("{0} {1}",
+                wordInfo.getWord(),
+                wordInfo.getWordCount());
     }
 
     private List<WordInfo> sortWordsDescending(List<WordInfo> wordInfoList) {
