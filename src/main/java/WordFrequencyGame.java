@@ -1,9 +1,11 @@
+import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
     private final String BLANK_SPACE = "\\s+";
     private final String CALCULATE_ERROR_MESSAGE = "Calculate Error";
+    private final String NEW_LINE = "\n";
 
     public String getResult(String sentence) {
         if (sentence.split(BLANK_SPACE).length == 1) {
@@ -13,16 +15,18 @@ public class WordFrequencyGame {
             List<String> words = splitByWords(sentence);
             List<WordInfo> wordInfoList = generateWordsInfo(words);
             wordInfoList = sortWordsDescending(wordInfoList);
-
-            StringJoiner joiner = new StringJoiner("\n");
-            for (WordInfo w : wordInfoList) {
-                String s = w.getValue() + " " + w.getWordCount();
-                joiner.add(s);
-            }
-            return joiner.toString();
+            return generateResultingWordFrequency(wordInfoList);
         } catch (Exception e) {
             return CALCULATE_ERROR_MESSAGE;
         }
+    }
+
+    private String generateResultingWordFrequency(List<WordInfo> wordsInfo) {
+        return wordsInfo.stream()
+                .map(wordInfo -> MessageFormat.format("{0} {1}",
+                        wordInfo.getValue(),
+                        wordInfo.getWordCount()))
+                .collect(Collectors.joining(NEW_LINE));
     }
 
     private List<WordInfo> sortWordsDescending(List<WordInfo> wordInfoList) {
