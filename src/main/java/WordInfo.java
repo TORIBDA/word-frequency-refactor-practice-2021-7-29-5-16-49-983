@@ -9,10 +9,6 @@ public class WordInfo {
         this.wordCount = wordCount;
     }
 
-    public String getWord() {
-        return this.word;
-    }
-
     public int getWordCount() {
         return this.wordCount;
     }
