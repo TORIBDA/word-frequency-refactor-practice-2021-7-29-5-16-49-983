@@ -24,7 +24,7 @@ public class WordFrequencyGame {
     private String generateResultingWordFrequency(List<WordInfo> wordsInfo) {
         return wordsInfo.stream()
                 .map(wordInfo -> MessageFormat.format("{0} {1}",
-                        wordInfo.getValue(),
+                        wordInfo.getWord(),
                         wordInfo.getWordCount()))
                 .collect(Collectors.joining(NEW_LINE));
     }
