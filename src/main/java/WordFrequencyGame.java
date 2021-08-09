@@ -3,6 +3,7 @@ import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
     private final String BLANK_SPACE = "\\s+";
+    private final String CALCULATE_ERROR_MESSAGE = "Calculate Error";
 
     public String getResult(String sentence) {
         if (sentence.split(BLANK_SPACE).length == 1) {
@@ -20,7 +21,7 @@ public class WordFrequencyGame {
                 }
                 return joiner.toString();
             } catch (Exception e) {
-                return "Calculate Error";
+                return CALCULATE_ERROR_MESSAGE;
             }
         }
     }
