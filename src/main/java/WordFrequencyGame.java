@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
     private final String BLANK_SPACE = "\\s+";
@@ -9,7 +10,7 @@ public class WordFrequencyGame {
         } else {
             try {
                 //split the input string with 1 to n pieces of spaces
-                String[] words = sentence.split(BLANK_SPACE);
+                List<String> words = splitByWords(sentence);
 
                 List<WordInfo> wordInfoList = new ArrayList<>();
                 for (String word : words) {
@@ -41,10 +42,14 @@ public class WordFrequencyGame {
         }
     }
 
+    private List<String> splitByWords(String sentence) {
+        return Arrays.asList(sentence.split(BLANK_SPACE));
+    }
+
     private Map<String, List<WordInfo>> getListMap(List<WordInfo> wordInfoList) {
         Map<String, List<WordInfo>> map = new HashMap<>();
         for (WordInfo wordInfo : wordInfoList) {
-//       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
+            //       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
             if (!map.containsKey(wordInfo.getValue())) {
                 ArrayList arr = new ArrayList<>();
                 arr.add(wordInfo);
