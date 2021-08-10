@@ -5,18 +5,15 @@ public class WordFrequencyGame {
     private final String BLANK_SPACE = "\\s+";
     private final String CALCULATE_ERROR_MESSAGE = "Calculate Error";
     private final String NEW_LINE = "\n";
-    private final int SINGLE_WORD_COUNT = 1;
 
     public String getResult(String sentence) {
-        if (splitByWords(sentence).size() == SINGLE_WORD_COUNT) {
-            return new WordInfo(sentence, SINGLE_WORD_COUNT).generateWordWithCount();
-        }
         try {
             List<String> words = splitByWords(sentence);
             List<WordInfo> wordInfoList = generateWordsInfo(words);
             wordInfoList = sortWordsDescending(wordInfoList);
             return generateResultingWordFrequency(wordInfoList);
         } catch (Exception e) {
+            //TODO: use customized exception to be thrown when failed to execute code
             return CALCULATE_ERROR_MESSAGE;
         }
     }
@@ -28,6 +25,7 @@ public class WordFrequencyGame {
     }
 
     private List<WordInfo> sortWordsDescending(List<WordInfo> wordInfoList) {
+        //TODO: use sort
         return wordInfoList.stream()
                 .sorted((firstWord, secondWord) -> secondWord.getWordCount() - firstWord.getWordCount())
                 .collect(Collectors.toList());
@@ -44,6 +42,7 @@ public class WordFrequencyGame {
     }
 
     private int computeWordCountFromWords(String distinctWord, List<String> words) {
+        //TODO: check collections frequency
         return (int) words.stream().filter(word -> word.equals(distinctWord)).count();
     }
 
